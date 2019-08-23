@@ -1,6 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    debase (0.2.4)
+      debase-ruby_core_source (>= 0.10.2)
+    debase-ruby_core_source (0.10.5)
     elasticsearch (7.2.0)
       elasticsearch-api (= 7.2.0)
       elasticsearch-transport (= 7.2.0)
@@ -14,13 +17,18 @@ GEM
     json (2.2.0)
     multi_json (1.12.1)
     multipart-post (2.0.0)
+    rake (12.3.2)
+    ruby-debug-ide (0.7.0)
+      rake (>= 0.8.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  debase
   elasticsearch
   json
+  ruby-debug-ide
 
 BUNDLED WITH
    2.0.1

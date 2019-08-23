@@ -4,33 +4,53 @@ require 'io/console'
 require 'elasticsearch'
 require 'json'
 
-def feed_one(client, json)
-  client.create index: 'basic',
-                type: '_doc',
-                body: json
-end
+# Feed one history source
+class EsFeeder
+  def initialize
+    @client = Elasticsearch::Client.new(url: url, log: false)
+  end
 
-puts 'Username:'
-username = gets
-username = username.strip
-password = STDIN.getpass "Enter Password:\n"
-password = password.strip
-puts 'Input file:'
-input_file = gets
-input_file = input_file.strip
-url = "https://#{username}:#{password}@historyengine-3812216299.us-west-2.bonsaisearch.net:443" # rubocop:disable Metrics/LineLength
-# puts url
+  def feed_one(json)
+    @client.create index: 'history_source',
+                   type: '_doc',
+                   body: json
+  end
 
-client = Elasticsearch::Client.new(url: url, log: false)
+  def url
+    # This block is only for Bonsai
+    # puts 'Username:'
+    # username = gets
+    # username = username.strip
+    # password = STDIN.getpass "Enter Password:\n"
+    # password = password.strip
+    # url = "https://#{username}:#{password}\
+    # @historyengine-3812216299.us-west-2.bonsaisearch.net:443"
+    # puts url
 
-File.open(input_file, 'r') do |file|
-  json_array = JSON.load(file) # rubocop:disable Security/JSONLoad
-  counter = 1
-  json_array.each do |json|
-    if (counter % 10).zero?
-      puts "Processing paragraphs: #{counter}/#{json_array.size}"
+    # This is for local testing
+    url = 'http://localhost:9200'
+
+    url
+  end
+
+  def run(file_name)
+    threads = []
+    File.open(file_name, 'r') do |file|
+      json_array = JSON.load(file) # rubocop:disable Security/JSONLoad
+      json_array.each do |json|
+        threads << Thread.new { feed_one(json) }
+      end
     end
-    feed_one(client, json)
-    counter += 1
+    threads.each(&:join)
+  end
+
+  def delete_source(source)
+    @client.delete_by_query(
+      index: 'history_source',
+      body: { query: { bool: { must: [{ match: { source: source } }] } } }
+    )
   end
 end
+
+EsFeeder.new.run('json/hanshu.json')
+# puts EsFeeder.new.delete_source('')

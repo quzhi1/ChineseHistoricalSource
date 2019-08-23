@@ -11,16 +11,16 @@ def generate_paragraph_json(source, chapter, text)
 end
 
 counter = 0
-chaptor = nil
+chapter = nil
 line_buffer = StringIO.new
 json_array = []
 File.open('utf8/01史记.txt', 'r') do |utf8_input|
   utf8_input.each_line do |line|
-    # Check if it is a new chaptor
-    new_chaptor = line[/●卷(.+)·(.+)第(.+)/, 2]
-    if new_chaptor
-      puts "Processing chaptor #{new_chaptor}"
-      chaptor = new_chaptor
+    # Check if it is a new chapter
+    new_chapter = line[/●卷(.+)·(.+)第(.+)/, 2]
+    if new_chapter
+      puts "Processing chapter #{new_chapter}"
+      chapter = new_chapter
       counter += 1
       next
     end
@@ -31,7 +31,7 @@ File.open('utf8/01史记.txt', 'r') do |utf8_input|
       if line_buffer.size != 0 # rubocop:disable Style/ZeroLengthPredicate
         text = line_buffer.string.clone
         # puts "Dumping: #{text}"
-        json_array << generate_paragraph_json('史记', chaptor, text)
+        json_array << generate_paragraph_json('史记', chapter, text)
         line_buffer.truncate(0)
         line_buffer.rewind
       end
