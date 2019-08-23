@@ -111,7 +111,9 @@ GCP的免费Tier只有0.6GB的内存（不给力啊老湿），而ElasticSearch�
 
 ## GCP的弃坑
 
-GCP的免费版内存实在太小了，就算是把Heap Size变小，还是会让Instance直接死掉。我现在想先试试在Mac上搞一个Demo版本，以后估计真的要众筹买AWS、GCP、Heroku或者Bonsai了。
+GCP的免费版内存实在太小了，就算是把Heap Size变小，还是会让Instance直接死掉。我现在想先试试在Mac上搞一个Demo版本，以后估计真的要**众筹**买AWS、GCP、Heroku或者Bonsai了。
+
+![crowd-funding](http://filmdope.com/wp-content/uploads/2009/11/oliver-twist01.jpg)
 
 ## Mac上安装ElasticSearch
 
@@ -121,7 +123,14 @@ GCP的免费版内存实在太小了，就算是把Heap Size变小，还是会�
 brew install elasticsearch
 brew services start elasticsearch # Background service running
 elasticsearch # Test in shell
+brew install kibana
+brew services start kibana # Background service running
+kibana # Test in shell
 ```
+
+Elasticsearch默认port是9200，Kibana默认port是5601
+
+Log和Config什么的可以在这儿找：https://www.elastic.co/guide/en/elasticsearch/reference/current/brew.html
 
 ## 史记
 史记这个txt比较整齐，从第五行开始是正文（为了方便我直接把前四行手工删了），所有章节都以"●卷XXX第XXX"开始。
