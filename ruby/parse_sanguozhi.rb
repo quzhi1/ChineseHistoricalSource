@@ -19,9 +19,9 @@ File.open('utf8/三国志乱序版.txt', 'r') do |utf8_input|
     end
 
     # Process each chapter
-    line.split.each do |paragraph|
+    unless line.strip.empty?
       # puts "Dumping: #{paragraph}"
-      json_array << generate_paragraph_json('三国志', chapter, paragraph)
+      json_array << generate_paragraph_json('三国志', chapter, line.strip)
     end
     counter += 1
 

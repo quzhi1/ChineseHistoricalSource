@@ -52,5 +52,5 @@ class EsFeeder
   end
 end
 
-EsFeeder.new.run('json/sanguozhi.json')
+EsFeeder.new.run('json/jinshu.json')
 # puts EsFeeder.new.delete_source('')

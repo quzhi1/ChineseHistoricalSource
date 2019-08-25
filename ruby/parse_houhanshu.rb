@@ -19,9 +19,8 @@ File.open('utf8/后汉书乱序版.TXT', 'r') do |utf8_input|
     end
 
     # Process each chapter
-    line.split.each do |paragraph|
-      # puts "Dumping: #{paragraph}"
-      json_array << generate_paragraph_json('后汉书', chapter, paragraph)
+    unless line.strip.empty?
+      json_array << generate_paragraph_json('后汉书', chapter, line.strip)
     end
     counter += 1
 
