@@ -214,3 +214,9 @@ Log和Config什么的可以在这儿找：https://www.elastic.co/guide/en/elasti
 梁书竟然没有，需要这个资源：http://www.gdwxmz.com/txt/shishu/liangshu.html
 
 这个资源处理方法和后汉书一样。
+
+# 陈书
+
+终于到了吕思勉先生的偶像陈武帝陈霸先了！耶！
+
+格式和南齐书一样，略。
