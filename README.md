@@ -208,3 +208,9 @@ Log和Config什么的可以在这儿找：https://www.elastic.co/guide/en/elasti
 ## 南齐书
 
 格式和宋书一样，略。
+
+## 梁书
+
+梁书竟然没有，需要这个资源：http://www.gdwxmz.com/txt/shishu/liangshu.html
+
+这个资源处理方法和后汉书一样。
