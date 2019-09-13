@@ -220,3 +220,19 @@ Log和Config什么的可以在这儿找：https://www.elastic.co/guide/en/elasti
 终于到了吕思勉先生的偶像陈武帝陈霸先了！耶！
 
 格式和南齐书一样，略。
+
+# 魏书
+
+我发现http://www.gdwxmz.com 因为没有向国家备案，于是被阿里云关了服务器。摔！
+
+找到了一个白话文的版本：https://www.bhzw.cc/info/9738.html，并没有卵用。
+
+魏书的作者魏收字伯起，这个字我喜欢。
+
+发现了另一个源：https://www.bhzw.cc/info/6103.html。这个是编码不是utf8，而且是繁体，需要转换一下。
+
+没想到我有生之年真的会用到hao123：http://www.hao123.com/haoserver/jianfanzh.htm
+
+有时候一章分成两行写，需要编辑一下。
+
+卷四章节名少个个字，“帝纪第四 世祖纪下  宗纪”，应该是“帝纪第四 世祖纪下  恭宗纪  ”
