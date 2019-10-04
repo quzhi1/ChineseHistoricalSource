@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'io/console'
+require 'concurrent-ruby'
 require 'elasticsearch'
 require 'json'
 
@@ -34,23 +35,50 @@ class EsFeeder
   end
 
   def run(file_name)
-    threads = []
+    puts "Processing #{file_name}"
+    pool = Concurrent::FixedThreadPool.new(12)
     File.open(file_name, 'r') do |file|
       json_array = JSON.load(file) # rubocop:disable Security/JSONLoad
       json_array.each do |json|
-        threads << Thread.new { feed_one(json) }
+        pool.post { feed_one(json) }
       end
     end
-    threads.each(&:join)
   end
 
-  def delete_source(source)
+  def delete_source(source) # rubocop:disable Metrics/MethodLength
     @client.delete_by_query(
       index: 'history_source',
-      body: { query: { bool: { must: [{ match: { source: source } }] } } }
+      body: {
+        query: {
+          bool: {
+            must: [
+              {
+                match: { source: source }
+              }
+            ]
+          }
+        }
+      }
     )
+  end
+
+  def delete_all
+    @client.delete_by_query(
+      index: 'history_source',
+      body: {
+        query: {
+          match_all: {}
+        }
+      }
+    )
+  end
+
+  def ingest_all
+    Dir['json/*.json'].each { |file_name| EsFeeder.new.run(file_name) }
   end
 end
 
-EsFeeder.new.run('json/weishu.json')
+# EsFeeder.new.run('json/weishu.json')
 # puts EsFeeder.new.delete_source('')
+# puts EsFeeder.new.delete_all
+EsFeeder.new.ingest_all

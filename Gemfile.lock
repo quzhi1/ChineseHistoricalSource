@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    concurrent-ruby (1.0.5)
     debase (0.2.4)
       debase-ruby_core_source (>= 0.10.2)
     debase-ruby_core_source (0.10.5)
@@ -15,8 +16,12 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     json (2.2.0)
+    mini_portile2 (2.4.0)
     multi_json (1.12.1)
     multipart-post (2.0.0)
+    nokogiri (1.10.4)
+      mini_portile2 (~> 2.4.0)
+    powerpack (0.1.2)
     rake (12.3.2)
     ruby-debug-ide (0.7.0)
       rake (>= 0.8.1)
@@ -25,9 +30,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  concurrent-ruby
   debase
   elasticsearch
   json
+  nokogiri
+  powerpack
   ruby-debug-ide
 
 BUNDLED WITH
