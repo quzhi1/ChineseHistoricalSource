@@ -12,6 +12,7 @@ class EsFeeder
   end
 
   def feed_one(json)
+    # puts "Feeding: #{json}"
     @client.create index: 'history_source',
                    type: '_doc',
                    body: json
@@ -43,6 +44,14 @@ class EsFeeder
         pool.post { feed_one(json) }
       end
     end
+    pool.shutdown
+    pool.wait_for_termination
+  end
+
+  def doc_count(file_name)
+    File.open(file_name, 'r') do |file|
+      JSON.load(file).size # rubocop:disable Security/JSONLoad
+    end
   end
 
   def delete_source(source) # rubocop:disable Metrics/MethodLength
@@ -73,12 +82,67 @@ class EsFeeder
     )
   end
 
+  def count_by_source(source) # rubocop:disable Metrics/MethodLength
+    res = @client.count(
+      index: 'history_source',
+      body: {
+        query: {
+          bool: {
+            must: [
+              {
+                match_phrase: {
+                  'source.keyword' => {
+                    query: source
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    )
+    res['count']
+  end
+
   def ingest_all
     Dir['json/*.json'].each { |file_name| EsFeeder.new.run(file_name) }
   end
+
+  def post_run_test # rubocop:disable Metrics/MethodLength
+    Dir['json/*.json'].each do |file_name|
+      source = file_name.sub('json/', '').sub('.json', '')
+      local_count = doc_count(file_name)
+      es_count = count_by_source(source)
+      if es_count != local_count
+        raise "#{source} ingestion incomplete. "\
+          "Expected: #{local_count}. Actual: #{es_count}"
+      else
+        puts "#{source} ingestion is sucessful"
+      end
+    end
+  end
 end
 
-# EsFeeder.new.run('json/weishu.json')
-# puts EsFeeder.new.delete_source('')
-# puts EsFeeder.new.delete_all
-EsFeeder.new.ingest_all
+es_feeder = EsFeeder.new
+
+# rubocop:disable Style/AsciiComments
+# Ingest one source
+# es_feeder.run('json/宋史.json')
+
+# Ingest all sources
+# es_feeder.ingest_all
+
+# Count local doc and elasticsearch doc
+# puts es_feeder.doc_count('json/旧五代史.json')
+# puts es_feeder.count_by_source('旧五代史')
+
+# Delete one souce
+# puts es_feeder.delete_source('史记')
+
+# Delete all sources
+# puts es_feeder.delete_all
+
+# rubocop:enable Style/AsciiComments
+
+# Test if any document missing
+es_feeder.post_run_test

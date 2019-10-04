@@ -272,3 +272,36 @@ txt格式不统一，而且有乱码。而网上已有的二十四史结构统�
 史记缺了“万石张叔列传”，好在我之前的json有这一章，可以手工补上。
 
 写完了！泪目！
+
+## 测试
+
+ElasticSearch有Rate Limit，是12。我认为是concurrent request不能超过12。我加了个Thread Pool，解决。
+
+写个了post function test：
+
+陈书 ingestion is sucessful
+宋书 ingestion is sucessful
+隋书 ingestion is sucessful
+旧五代史 ingestion is sucessful
+宋史 ingestion is sucessful
+梁书 ingestion is sucessful
+金史 ingestion is sucessful
+辽史 ingestion is sucessful
+旧唐书 ingestion is sucessful
+魏书 ingestion is sucessful
+新五代史 ingestion is sucessful
+晋书 ingestion is sucessful
+南史 ingestion is sucessful
+北史 ingestion is sucessful
+新唐书 ingestion is sucessful
+南齐书 ingestion is sucessful
+后汉书 ingestion is sucessful
+汉书 ingestion is sucessful
+明史 ingestion is sucessful
+元史 ingestion is sucessful
+三国志 ingestion is sucessful
+周书 ingestion is sucessful
+北齐书 ingestion is sucessful
+史记 ingestion is sucessful
+
+干杯🍻
