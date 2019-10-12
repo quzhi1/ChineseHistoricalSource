@@ -43,7 +43,7 @@ This is my personal stash of Chinese Historical Source
 18. 再添加之前存的History Soruce Distribution。
 ![Dashboard Add](./img/dashboard_add.png "Dashboard Add")
 ![Dashboard Visualization](./img/dashboard_visualization.png "Dashboard Visualization")
-19. 现在你可以看到一个很不错的Dashboard了，别忘了保存，起名叫Default。
+19. 现在你可以看到一个很不错的Dashboard了，别忘了保存，起名叫Default。如果你不满意的话，可以调整大小和布局。
 ![Dashboard Done](./img/dashboard_done.png "Dashboard Done")
 ![Dashboard Save](./img/dashboard_save.png "Dashboard Save")
 20. 找到浏览器地址栏，把/和?直接的Dashboard ID存下来（比如开个记事本什么的）。
