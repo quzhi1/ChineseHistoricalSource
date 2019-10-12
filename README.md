@@ -48,7 +48,7 @@ This is my personal stash of Chinese Historical Source
 ![Dashboard Save](./img/dashboard_save.png "Dashboard Save")
 20. 找到浏览器地址栏，把/和?直接的Dashboard ID存下来（比如开个记事本什么的）。
 ![Dashboard ID](./img/dashboard_id.png "Dashboard ID")
-21. 打开这个文件：/usr/local/etc/kibana/kibana.yml，找到#kibana.defaultAppId: "home"这一行，把home改成你之前存的Dashboard ID，比如dashboard/21573aa0-ed42-11e9-b39c-192331344644
+21. 打开这个文件：/usr/local/etc/kibana/kibana.yml，找到#kibana.defaultAppId: "home"这一行，把home改成你之前存的Dashboard ID，比如dashboard/21573aa0-ed42-11e9-b39c-192331344644。然后把这行前面的#删掉。
 ![Change Homepage](./img/change_homepage.png "Change Homepage")
 22. 重启Kibana：`brew services restart kibana`
 
