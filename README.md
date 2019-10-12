@@ -9,15 +9,34 @@ This is my personal stash of Chinese Historical Source
 
 个人不推荐用这个网站，因为服务器是自己Host的，非常不稳定。
 
-建议自己用自己的电脑Host这个服务器。
+建议您用自己的电脑Host这个服务器。
 
 # 安装方法
-1. 安装Ruby和bundle：`brew install ruby; gem install bundle`
-2. 把我的repo clone下来：`git clone git@github.com:quzhi1/ChineseHistoricalSource.git`
-3. 安装ElasticSearch：`brew install elasticsearch`
-4. 启动ElasticSearch：`brew services start elasticsearch # Background service running`
-5. 安装Kibana：`brew services start kibana`
-6. 把史料存到ElasticSearch里（可能会有些慢）：`cd ChineseHistoricalSource; bundle install; ruby ruby/es_feeder.rb`
+1. 安装Ruby和bundle：
+```
+brew install ruby
+gem install bundle
+```
+2. 把我的repo clone下来：
+```
+git clone git@github.com:quzhi1/ChineseHistoricalSource.git
+```
+3. 安装并启动ElasticSearch：
+```
+brew install elasticsearch
+brew services start elasticsearch
+```
+5. 安装并启动Kibana：
+```
+brew install kibana
+brew services start kibana
+```
+6. 把史料存到ElasticSearch里（可能会有些慢）：
+```
+cd ChineseHistoricalSource
+bundle install
+ruby ruby/es_feeder.rb
+```
 7. 用浏览器打开http://localhost:5601，你会发现以下界面，点击Discover。
 ![主页](./img/home_screen.png "主页")
 8. 在Discover里，依次添加source，chapter，和text。
