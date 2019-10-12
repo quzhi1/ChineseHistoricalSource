@@ -37,7 +37,7 @@ cd ChineseHistoricalSource
 bundle install
 ruby ruby/es_feeder.rb
 ```
-7. 用浏览器打开http://localhost:5601，你会发现以下界面，点击Discover。
+7. 用浏览器打开http://localhost:5601 你会发现以下界面，点击Discover。
 ![主页](./img/home_screen.png "主页")
 8. 在Discover里，依次添加source，chapter，和text。
 ![Discover页面](./img/discover_page.png "Discover页面")
