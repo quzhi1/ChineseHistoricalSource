@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'concurrent-ruby'
+gem 'concurrent-ruby', require: 'concurrent'
 gem 'debase'
 gem 'elasticsearch'
 gem 'json'
