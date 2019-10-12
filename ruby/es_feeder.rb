@@ -130,7 +130,7 @@ es_feeder = EsFeeder.new
 # es_feeder.run('json/宋史.json')
 
 # Ingest all sources
-# es_feeder.ingest_all
+es_feeder.ingest_all
 
 # Count local doc and elasticsearch doc
 # puts es_feeder.doc_count('json/旧五代史.json')

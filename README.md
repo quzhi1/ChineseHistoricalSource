@@ -3,15 +3,66 @@ This is my personal stash of Chinese Historical Source
 
 声明：这是个个人项目，不要用于商业用途。
 
+# 项目Demo
+
+网址：http://24history.asia.gp
+
+个人不推荐用这个网站，因为服务器是自己Host的，非常不稳定。
+
+建议自己用自己的电脑Host这个服务器。
+
+# 安装方法
+1. 安装Ruby：`brew install ruby`
+2. 把我的repo clone下来：`git clone git@github.com:quzhi1/ChineseHistoricalSource.git`
+3. 安装ElasticSearch：`brew install elasticsearch`
+4. 启动ElasticSearch：`brew services start elasticsearch # Background service running`
+5. 安装Kibana：`brew services start kibana`
+6. 把史料存到ElasticSearch里（可能会有些慢）：`cd ChineseHistoricalSource; ruby ruby/es_feeder.rb`
+7. 用浏览器打开http://localhost:5601，你会发现以下界面，点击Discover。
+![主页](./img/home_screen.png "主页")
+8. 在Discover里，依次添加source，chapter，和text。
+![Discover页面](./img/discover_page.png "Discover页面")
+9. 右上角保存，命名为Standard。
+![Save Discover](./img/save_discover.png "Save Discover")
+10. 点击Visualize。
+![主页](./img/home_screen_2.png "主页")
+11. 点击Create a visualization，选择Pie。
+![New Visualization](./img/new_visualization.png "New Visualization")
+12. 选择From a Saved Search下面的Standard，然后点击Split Slices。
+![Split Slices](./img/split_slices.png "Split Slices")
+13. Aggregation选Terms，Field选source.keyword，Order By选metric: Count，Order选Decreasing，Size选24。
+![Run Visualization](./img/run_visualization.png "Run Visualization")
+14. 都选完了点运行。然后就可以看到二十四史的分布了。
+![Visualization Done](./img/visualization_done.png "Visualization Done")
+15. 别忘保存，起名叫History Source Distribution。
+![Save Visualization](./img/save_visualization.png "Save Visualization")
+16. 点击Dashboard。
+![Dashboard Page](./img/dashboard_page.png "Dashboard Page")
+17. 添加之前存的Standard。
+![Dashboard Search](./img/dashboard_search.png "Dashboard Search")
+18. 再添加之前存的History Soruce Distribution。
+![Dashboard Add](./img/dashboard_add.png "Dashboard Add")
+![Dashboard Visualization](./img/dashboard_visualization.png "Dashboard Visualization")
+19. 现在你可以看到一个很不错的Dashboard了，别忘了保存，起名叫Default。
+![Dashboard Done](./img/dashboard_done.png "Dashboard Done")
+![Dashboard Save](./img/dashboard_save.png "Dashboard Save")
+20. 找到浏览器地址栏，把/和?直接的Dashboard ID存下来（比如开个记事本什么的）。
+![Dashboard ID](./img/dashboard_id.png "Dashboard ID")
+21. 打开这个文件：/usr/local/etc/kibana/kibana.yml，找到#kibana.defaultAppId: "home"这一行，把home改成你之前存的Dashboard ID，比如dashboard/21573aa0-ed42-11e9-b39c-192331344644
+![Change Homepage](./img/change_homepage.png "Change Homepage")
+22. 重启Kibana：`brew services restart kibana`
+
+安装完成了！你可以去localhost:5601浏览你的Dashboard。祝你玩得愉快。
+
 # 项目目的
 
-我一直想用做一个史料查询系统，这样的话就能想用Google一样搜索不同史料了。目前在线能找到的各种史料大概只有txt和pdf版本，这两种都不是标准化数据，不能喂到索引系统里面。
+我一直想用做一个史料查询系统，这样的话就能像用Google一样搜索二十四史了。
 
-史料的电子版
+但是，目前在线能找到的各种史料大概只有txt和pdf版本，这两种都不是标准化数据，不能喂到索引系统里面。
 
-史料的文白对照不在本项目的范畴里。如果需要文白对照，我个人推荐一个移动应用"读典籍"：https://dudianji.com/mobile/
+史料的文白对照不在本项目的范畴里。如果需要文白对照，我个人推荐一个移动应用"读典籍"：https://dudianji.com/mobile/。还有一个是国学网：https://duguoxue.com/ershisishi/。
 
-史料的电子化现在基本上弄得差不多了，这个项目就是想把电子史料标准化。
+史料的电子化被别人弄得差不多了，我的项目就是想把电子史料标准化。
 
 # 项目内容
 
@@ -30,6 +81,8 @@ This is my personal stash of Chinese Historical Source
 转码数据我也会做一下格式上的预处理。
 3. json数据。这个数据就是可以放到索引系统里的标准化数据
 4. 标准化算法。我用Ruby写一些Script，把utf8格式的txt史料parse成json。
+
+这个过程后来发现并不高效，于是后来我采用抓取国学网（https://duguoxue.com/ershisishi/）的方法生成json文件。
 
 # json格式
 目前支持三个Attribute：史料、章节和原文。原文的每一句话都是一个json object。
@@ -280,28 +333,51 @@ ElasticSearch有Rate Limit，是12。我认为是concurrent request不能超过1
 写个了post function test：
 
 陈书 ingestion is sucessful
+
 宋书 ingestion is sucessful
+
 隋书 ingestion is sucessful
+
 旧五代史 ingestion is sucessful
+
 宋史 ingestion is sucessful
+
 梁书 ingestion is sucessful
+
 金史 ingestion is sucessful
+
 辽史 ingestion is sucessful
+
 旧唐书 ingestion is sucessful
+
 魏书 ingestion is sucessful
+
 新五代史 ingestion is sucessful
+
 晋书 ingestion is sucessful
+
 南史 ingestion is sucessful
+
 北史 ingestion is sucessful
+
 新唐书 ingestion is sucessful
+
 南齐书 ingestion is sucessful
+
 后汉书 ingestion is sucessful
+
 汉书 ingestion is sucessful
+
 明史 ingestion is sucessful
+
 元史 ingestion is sucessful
+
 三国志 ingestion is sucessful
+
 周书 ingestion is sucessful
+
 北齐书 ingestion is sucessful
+
 史记 ingestion is sucessful
 
 干杯🍻
