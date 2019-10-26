@@ -73,6 +73,16 @@ ruby ruby/es_feeder.rb
 
 安装完成了！你可以去localhost:5601浏览你的Dashboard。祝你玩得愉快。
 
+# 用Docker安装ElasticSearch
+1. cd ChineseHistoricalSource
+2. docker-compose up
+3. bundle install
+4. ruby ruby/es_feeder.rb
+
+如果想要Cleanup：
+1. docker stop $(docker ps -a -q)
+2. docker rm $(docker ps -a -q)
+
 # 项目目的
 
 我一直想用做一个史料查询系统，这样的话就能像用Google一样搜索二十四史了。

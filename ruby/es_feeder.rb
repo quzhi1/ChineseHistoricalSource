@@ -30,7 +30,7 @@ class EsFeeder
     # puts url
 
     # This is for local testing
-    url = 'http://localhost:9200'
+    url = 'http://127.0.0.1:9200'
 
     url
   end
