@@ -59,7 +59,7 @@ ruby ruby/es_feeder.rb
 ![Dashboard Page](./img/dashboard_page.png "Dashboard Page")
 17. 添加之前存的Standard。
 ![Dashboard Search](./img/dashboard_search.png "Dashboard Search")
-18. 再添加之前存的History Soruce Distribution。
+18. 再添加之前存的History Source Distribution。
 ![Dashboard Add](./img/dashboard_add.png "Dashboard Add")
 ![Dashboard Visualization](./img/dashboard_visualization.png "Dashboard Visualization")
 19. 现在你可以看到一个很不错的Dashboard了，别忘了保存，起名叫Default。如果你不满意的话，可以调整大小和布局。
@@ -443,3 +443,21 @@ WTF？
 
 Docker hub上有ElasticSearch和Kibana的image，是基于CentOS的。我写了个简单的docker-compose文件，一键启动一个Docker。
 
+进入Docker用
+```
+docker ps # Find the contain id
+docker exec -it <container_id> /bin/bash # Replace <container_id>
+```
+
+然后设置密码
+```
+bin/elasticsearch-setup-passwords interactive
+```
+
+我参考了这个blog：http://codingfundas.com/setting-up-elasticsearch-6-8-with-kibana-and-x-pack-security-enabled/index.html
+
+还有官方指南：https://www.elastic.co/guide/en/elasticsearch/reference/7.4/get-started-built-in-users.html
+
+## Read only user setup
+
+Follow https://www.elastic.co/blog/kibana-dashboard-only-mode

@@ -8,7 +8,12 @@ require 'json'
 # Feed one history source
 class EsFeeder
   def initialize
-    @client = Elasticsearch::Client.new(url: url, log: false)
+    @client = Elasticsearch::Client.new(
+      url: url,
+      log: false,
+      user: 'elastic',
+      password: 'changeme'
+    )
   end
 
   def feed_one(json)
@@ -127,17 +132,17 @@ es_feeder = EsFeeder.new
 
 # rubocop:disable Style/AsciiComments
 # Ingest one source
-es_feeder.run('json/宋史.json')
+# es_feeder.run('json/宋史.json')
 
 # Ingest all sources
-# es_feeder.ingest_all
+es_feeder.ingest_all
 
 # Count local doc and elasticsearch doc
 # puts es_feeder.doc_count('json/旧五代史.json')
 # puts es_feeder.count_by_source('旧五代史')
 
 # Delete one souce
-# puts es_feeder.delete_source('史记')
+# puts es_feeder.delete_source('宋史')
 
 # Delete all sources
 # puts es_feeder.delete_all
@@ -145,4 +150,4 @@ es_feeder.run('json/宋史.json')
 # rubocop:enable Style/AsciiComments
 
 # Test if any document missing
-# es_feeder.post_run_test
+es_feeder.post_run_test
