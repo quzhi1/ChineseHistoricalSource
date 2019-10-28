@@ -124,12 +124,6 @@ ruby ruby/es_feeder.rb
 }
 ```
 
-# 工程进度
-raw和utf8是纯手工操作，所以已完成。
-
-Ruby Parsing已完成：
-史记
-
 # 工程笔记
 
 ## GCP Instance Setup
@@ -297,13 +291,13 @@ Log和Config什么的可以在这儿找：https://www.elastic.co/guide/en/elasti
 
 这个资源处理方法和后汉书一样。
 
-# 陈书
+## 陈书
 
 终于到了吕思勉先生的偶像陈武帝陈霸先了！耶！
 
 格式和南齐书一样，略。
 
-# 魏书
+## 魏书
 
 我发现http://www.gdwxmz.com 因为没有向国家备案，于是被阿里云关了服务器。摔！
 
@@ -319,7 +313,7 @@ Log和Config什么的可以在这儿找：https://www.elastic.co/guide/en/elasti
 
 卷四章节名少个个字，“帝纪第四 世祖纪下  宗纪”，应该是“帝纪第四 世祖纪下  恭宗纪  ”
 
-# 北齐书
+## 北齐书
 
 北齐书这个格式根本不能Parse，我找一下别的源。
 
@@ -410,3 +404,42 @@ ElasticSearch有Rate Limit，是12。我认为是concurrent request不能超过1
 史记 ingestion is sucessful
 
 干杯🍻
+
+## 二期工程的开始
+
+一期工程有一个致命问题，就是Kibana的权限控制。现在，任何访问网站的人，都可以删掉任何人的Dashboard，删掉Search，删掉Visualization。
+
+这是个悲剧。一个人不小心在网站上修改删除，所有用户都用不了这个网站了。
+
+解决方法看起来很简单。Kibana有个Plugin叫做x-pack，这个东西可以控制访问权限。我只需要安装x-pack就行了。
+
+官方网站上说，x-pack是在ElasticSearch和Kibana免费版的全家桶里的。可是我找了半天没有找到。
+
+这是为什么呢？因为我安装的是oss distribution。这是一个特殊的package，因为历史原因，这个distribution的ES和Kibana版本比较老。
+
+安装官方版本需要先brew tap一下，然后安装elasticsearch-full。而oss distribution只需要brew install elasticsearch。
+
+我公司的电脑不让tap人家elastic公司的东西，我只能用个人电脑试了一下。安装倒是没啥问题，但ElasticSearch启动不了。
+
+这是为什么呢？（X2）
+
+因为ElasticSearch是运行在JVM上的。于是我brew cask install java。可ElasticSearch竟然还是启动不了，JVM加载不上去。
+
+WTF？
+
+后来查了一下，发现是java的version不对。最新版本的java是13，而ElasticSearch唯独不支持13。我看了一眼支持的版本，发现大多数版本的ElasticSearch都支持java8。
+
+那好办，我用了五年的Java，这点小事算不上什么（flag满满）。只要卸载java13，安装java8就可以了。
+
+然而，可能是因为我太老了吧，brew竟然不支持安装java8了。
+
+我陷入了深思。
+
+我发现我本来是想用一个Web Application，结果花了这么多时间在调环境。等等，这个状况怎么那么熟悉？很久以前，程序员哪怕只想写一个服务，也要在configure library上花费大量时间。可为什么今天不这样了呢？
+
+因为一个伟大的发明：**Docker**
+
+## 二十四史搜索的Dockerization
+
+Docker hub上有ElasticSearch和Kibana的image，是基于CentOS的。我写了个简单的docker-compose文件，一键启动一个Docker。
+
