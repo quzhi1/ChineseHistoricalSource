@@ -8,7 +8,7 @@ gem 'concurrent-ruby', require: 'concurrent'
 gem 'debase'
 gem 'elasticsearch'
 gem 'json'
-gem 'nokogiri'
+gem "nokogiri", ">= 1.10.8"
 gem 'powerpack'
 gem 'ruby-debug-ide'
 
