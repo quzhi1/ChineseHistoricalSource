@@ -19,7 +19,7 @@ GEM
     mini_portile2 (2.4.0)
     multi_json (1.12.1)
     multipart-post (2.0.0)
-    nokogiri (1.10.4)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     powerpack (0.1.2)
     rake (13.0.1)
@@ -34,7 +34,7 @@ DEPENDENCIES
   debase
   elasticsearch
   json
-  nokogiri
+  nokogiri (>= 1.10.8)
   powerpack
   ruby-debug-ide
 
