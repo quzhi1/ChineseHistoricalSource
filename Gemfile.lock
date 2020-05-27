@@ -22,7 +22,7 @@ GEM
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     powerpack (0.1.2)
-    rake (12.3.2)
+    rake (13.0.1)
     ruby-debug-ide (0.7.0)
       rake (>= 0.8.1)
 
