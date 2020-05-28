@@ -1,19 +1,28 @@
+# typed: strict
 # frozen_string_literal: true
 
 require 'open-uri'
 require 'nokogiri'
 require 'powerpack'
-require_relative './util.rb'
+require 'sorbet-runtime'
+require_relative './html_parser.rb'
 
 # Simple web crawler for this project
 class ChapterCrawler
+  extend T::Sig
+  include HtmlParser
   ROOT_URL = 'https://duguoxue.com/ershisishi'
 
+  sig { void }
   def run
     book_list = get_book_list
 
     book_list.each do |book_hash|
-      json_array = process_source(book_hash[:book_name], book_hash[:book_url], book_hash[:translation_url])
+      json_array = process_source(
+        book_hash[:book_name],
+        book_hash[:book_url],
+        book_hash[:translation_url]
+      )
 
       # puts json_array
       File.open("json/#{book_hash[:book_name]}.json", 'w') do |json_output|
@@ -22,6 +31,24 @@ class ChapterCrawler
     end
   end
 
+  sig do
+    params(
+      source: String,
+      book_url: String,
+      translation_url: String
+    )
+    .returns(
+      T::Array[
+        {
+          'source' => String,
+          'chapter' => String,
+          'text' => String,
+          'chapter_url' => String,
+          'chaptor_translation' => String
+        }
+      ]
+    )
+  end
   def process_source(source, book_url, translation_url)
     puts "Processing #{source}"
 
@@ -42,7 +69,7 @@ class ChapterCrawler
         chaptor_translation = translation_pair[1]
       else
         puts "No translation found for chaptor #{{ source: source, chapter_name: chapter_name }}"
-        chaptor_translation = ''
+        chaptor_translation = translation_url
       end
 
       process_chapter(source, chapter_url, chapter_name, chaptor_translation, json_array)
@@ -51,6 +78,13 @@ class ChapterCrawler
     json_array
   end
 
+  sig do
+    returns(
+      T::Array[
+        { book_name: String, book_url: String, translation_url: String }
+      ]
+    )
+  end
   def get_book_list
     source_page = Nokogiri::HTML(URI.parse(ROOT_URL).open)
     count = 2
@@ -67,25 +101,11 @@ class ChapterCrawler
     json_array
   end
 
-  def get_book_name(source_page, count)
-    chapter_name_xpath = '/html/body/div[3]/div[3]/article/ul/li[%<count>s]/span[2]/a/@data-title'
-                         .format(count: count)
-    source_page.xpath(chapter_name_xpath).text.strip
-  end
-
-  def get_book_url(source_page, count)
-    chapter_name_xpath = '/html/body/div[3]/div[3]/article/ul/li[%<count>s]/span[2]/a/@href'
-                         .format(count: count)
-    source_page.xpath(chapter_name_xpath).text.strip
-  end
-
-  def get_translation_url(source_page, count)
-    chapter_name_xpath = '/html/body/div[3]/div[3]/article/ul/li[%<count>s]/span[3]/a/@href'
-                         .format(count: count)
-    source_page.xpath(chapter_name_xpath).text.strip
-  end
-
   # Translation hash: {'五帝本纪' => 'https://duguoxue.com/ershisishi/2692.html'}
+  sig do
+    params(translation_url: String)
+    .returns(T::Hash[String, String])
+  end
   def get_translation_hash(translation_url)
     puts "Looking up translation #{translation_url}"
     count = 1
@@ -105,26 +125,26 @@ class ChapterCrawler
     translation_hash
   end
 
-  def get_chapter_name(source_page, count)
-    chapter_name_xpath = '/html/body/div[3]/div[3]/ul/li[%<count>s]/a'
-                         .format(count: count)
-    source_page.xpath(chapter_name_xpath).text.strip
+  sig do
+    params(
+      source: String,
+      chapter_url: String,
+      chapter_name: String,
+      chaptor_translation: String,
+      json_array: T::Array[{
+        'source' => String,
+        'chapter' => String,
+        'text' => String,
+        'chapter_url' => String,
+        'chaptor_translation' => String
+      }]
+    )
+    .returns(T.untyped)
   end
-
-  def get_chapter_url(source_page, count)
-    chapter_url_xpath = '/html/body/div[3]/div[3]/ul/li[%<count>s]/a/@href'
-                        .format(count: count)
-    source_page.xpath(chapter_url_xpath).text.strip
-  end
-
   def process_chapter(source, chapter_url, chapter_name, chaptor_translation, json_array)
     page = Nokogiri::HTML(open(chapter_url)) # rubocop:disable Security/Open
     # chapter = fetch_chapter_name(page)
     puts "\tProcessing chapter #{chapter_name}"
-    process_paragraphs(source, chapter_name, page, chapter_url, chaptor_translation, json_array)
-  end
-
-  def process_paragraphs(source, chapter, page, chapter_url, chaptor_translation, json_array)
     count = 1
     loop do
       para_xpath = '/html/body/div[3]/div[3]/p[%<para>s]/text()'
@@ -133,7 +153,13 @@ class ChapterCrawler
       break if para.empty?
 
       # puts "\t\t#{para}"
-      json_array << generate_paragraph_json(source, chapter, para, chapter_url, chaptor_translation)
+      json_array << {
+        'source' => source,
+        'chapter' => chapter_name,
+        'text' => para,
+        'chapter_url' => chapter_url,
+        'chaptor_translation' => chaptor_translation
+      }
       count += 1
     end
   end

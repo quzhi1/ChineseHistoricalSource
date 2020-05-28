@@ -30,6 +30,10 @@ GEM
     rake (13.0.1)
     ruby-debug-ide (0.7.0)
       rake (>= 0.8.1)
+    sorbet (0.5.5175)
+      sorbet-static (= 0.5.5175)
+    sorbet-runtime (0.5.5421)
+    sorbet-static (0.5.5175-universal-darwin-18)
 
 PLATFORMS
   ruby
@@ -43,6 +47,8 @@ DEPENDENCIES
   powerpack
   pry
   ruby-debug-ide
+  sorbet
+  sorbet-runtime
 
 BUNDLED WITH
    2.0.2

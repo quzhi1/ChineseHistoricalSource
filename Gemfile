@@ -12,6 +12,8 @@ gem "nokogiri", ">= 1.10.8"
 gem 'powerpack'
 gem 'pry'
 gem 'ruby-debug-ide'
+gem 'sorbet', group: :development
+gem 'sorbet-runtime'
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8

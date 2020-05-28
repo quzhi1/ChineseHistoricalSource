@@ -461,3 +461,20 @@ bin/elasticsearch-setup-passwords interactive
 ## Read only user setup
 
 Follow https://www.elastic.co/blog/kibana-dashboard-only-mode
+
+## 三期工程
+上次做这个项目离现在已经将近一年了，我自己查史料的时候经常用这个网站，总体来说比较满意（除了比较慢以外）。我发现有几个可以提升的地方。
+1. 产品功能：在查询的时候，有时候我想知道前后文，还想看看译文。查询系统要是有这两个的链接就好了。
+2. 代码整洁：这个代码库还可以加上robocop做lint，还可以加上sorbet做type checking。
+
+## 原文链接和翻译
+原文链接好做，翻译需要加一个hash，而且有时候缺翻译（“史记·秦始皇本纪”没有翻译），有时候章节名对不上。
+
+缺翻译的现象非常多，章节名也差异很大，原文往往是“志第二”，而译文就成了“XX志”。
+
+只能这么做了，如果翻译找不到，那就fall back到全书翻译的页面。至少比没有翻译强。
+
+## robocop和sorbet
+robocop只要是用vs code就可以自动检查，但过去没有加上.rubocop.yaml这个文件，我加了几个白名单。
+
+sorbet是我所在的公司开发的产品，可以给ruby做type check。可以按照这个教程做setup：[https://sorbet.org/docs/adopting](https://sorbet.org/docs/adopting)
