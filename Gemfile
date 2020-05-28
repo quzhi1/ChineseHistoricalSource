@@ -8,10 +8,13 @@ gem 'concurrent-ruby', require: 'concurrent'
 gem 'debase'
 gem 'elasticsearch'
 gem 'json'
+gem 'multi_json', ">= 1.14.1"
 gem "nokogiri", ">= 1.10.8"
 gem 'powerpack'
+gem 'pry'
 gem 'ruby-debug-ide'
-gem 'multi_json', ">= 1.14.1"
+gem 'sorbet', '0.4.4386', group: :development
+gem 'sorbet-runtime', '0.4.4386'
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
