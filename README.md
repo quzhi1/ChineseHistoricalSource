@@ -65,11 +65,11 @@ ruby ruby/es_feeder.rb
 19. 现在你可以看到一个很不错的Dashboard了，别忘了保存，起名叫Default。如果你不满意的话，可以调整大小和布局。
 ![Dashboard Done](./img/dashboard_done.png "Dashboard Done")
 ![Dashboard Save](./img/dashboard_save.png "Dashboard Save")
-20. 找到浏览器地址栏，把/和?直接的Dashboard ID存下来（比如开个记事本什么的）。
+20. 找到浏览器地址栏，把/和?之间的Dashboard ID存下来（比如开个记事本什么的）。
 ![Dashboard ID](./img/dashboard_id.png "Dashboard ID")
-21. 打开这个文件：/usr/local/etc/kibana/kibana.yml，找到#kibana.defaultAppId: "home"这一行，把home改成你之前存的Dashboard ID，比如dashboard/21573aa0-ed42-11e9-b39c-192331344644。然后把这行前面的#删掉。
+21. 打开这个文件：/usr/local/etc/kibana/kibana.yml，找到#kibana.defaultAppId这一行，把引号里的值改成你之前存的Dashboard ID，比如dashboard/21573aa0-ed42-11e9-b39c-192331344644。然后把这行前面的#删掉。
 ![Change Homepage](./img/change_homepage.png "Change Homepage")
-22. 重启Kibana：`brew services restart kibana`
+22. 重启Kibana：`brew services restart kibana`。 如果用的是Docker，`docker ps`一下，找到container id，然后`docker restart <container_id>`。
 
 安装完成了！你可以去localhost:5601浏览你的Dashboard。祝你玩得愉快。
 
@@ -120,9 +120,12 @@ ruby ruby/es_feeder.rb
 {
     "source": "史记",
     "chapter": "陈涉世家",
-    "text": "陈胜者，阳城人也，字涉。"
+    "text": "陈胜者，阳城人也，字涉。",
+    "chapter_url": "https://duguoxue.com/ershisishi/2607.html",
+    "translation": "https://duguoxue.com/ershisishi/2722.html"
 }
 ```
+有时候translation找不到对应章节，网址就是白话版史书的目录。
 
 # 工程笔记
 

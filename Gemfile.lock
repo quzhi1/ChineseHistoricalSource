@@ -1,29 +1,29 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    concurrent-ruby (1.0.5)
-    debase (0.2.4)
+    concurrent-ruby (1.1.6)
+    debase (0.2.4.1)
       debase-ruby_core_source (>= 0.10.2)
-    debase-ruby_core_source (0.10.5)
-    elasticsearch (7.2.0)
-      elasticsearch-api (= 7.2.0)
-      elasticsearch-transport (= 7.2.0)
-    elasticsearch-api (7.2.0)
+    debase-ruby_core_source (0.10.9)
+    elasticsearch (7.7.0)
+      elasticsearch-api (= 7.7.0)
+      elasticsearch-transport (= 7.7.0)
+    elasticsearch-api (7.7.0)
       multi_json
-    elasticsearch-transport (7.2.0)
-      faraday
+    elasticsearch-transport (7.7.0)
+      faraday (~> 1)
       multi_json
-    faraday (0.15.4)
+    faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
-    json (2.2.0)
+    json (2.3.0)
     mini_portile2 (2.4.0)
-    multi_json (1.12.1)
-    multipart-post (2.0.0)
+    multi_json (1.14.1)
+    multipart-post (2.1.1)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     powerpack (0.1.2)
     rake (13.0.1)
-    ruby-debug-ide (0.7.0)
+    ruby-debug-ide (0.7.2)
       rake (>= 0.8.1)
 
 PLATFORMS
@@ -34,6 +34,7 @@ DEPENDENCIES
   debase
   elasticsearch
   json
+  multi_json (>= 1.14.1)
   nokogiri (>= 1.10.8)
   powerpack
   ruby-debug-ide

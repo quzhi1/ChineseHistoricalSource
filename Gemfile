@@ -11,6 +11,7 @@ gem 'json'
 gem "nokogiri", ">= 1.10.8"
 gem 'powerpack'
 gem 'ruby-debug-ide'
+gem 'multi_json', ">= 1.14.1"
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
