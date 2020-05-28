@@ -1,10 +1,11 @@
 # typed: strict
 # frozen_string_literal: true
 
-require 'io/console'
 require 'concurrent-ruby'
 require 'elasticsearch'
+require 'io/console'
 require 'json'
+require 'sorbet-runtime'
 
 # Feed one history source
 class EsFeeder

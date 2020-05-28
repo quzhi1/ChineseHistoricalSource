@@ -39,7 +39,7 @@ ruby ruby/es_feeder.rb
 ```
 7. 用浏览器打开http://localhost:5601 你会发现以下界面，点击Discover。
 ![主页](./img/home_screen.png "主页")
-8. 在Discover里，依次添加source，chapter，和text。
+8. 在Discover里，依次添加source，chapter，text，chapter_url，和translation。
 ![Discover页面](./img/discover_page.png "Discover页面")
 9. 右上角保存，命名为Standard。
 ![Save Discover](./img/save_discover.png "Save Discover")
@@ -70,6 +70,8 @@ ruby ruby/es_feeder.rb
 21. 打开这个文件：/usr/local/etc/kibana/kibana.yml，找到#kibana.defaultAppId这一行，把引号里的值改成你之前存的Dashboard ID，比如dashboard/21573aa0-ed42-11e9-b39c-192331344644。然后把这行前面的#删掉。
 ![Change Homepage](./img/change_homepage.png "Change Homepage")
 22. 重启Kibana：`brew services restart kibana`。 如果用的是Docker，`docker ps`一下，找到container id，然后`docker restart <container_id>`。
+
+如果你想把url变得clickable，可以用[field formatter](https://stackoverflow.com/questions/34301271/how-to-display-a-url-as-a-clickable-link-in-kibana-4-discovery)
 
 安装完成了！你可以去localhost:5601浏览你的Dashboard。祝你玩得愉快。
 
