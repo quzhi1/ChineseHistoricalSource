@@ -1,3 +1,6 @@
+Bundler/OrderedGems:
+  Enabled: false
+
 Style/AsciiComments:
   Enabled: false
 
@@ -19,9 +22,6 @@ Style/StringLiterals:
 Style/SymbolArray:
   Enabled: false
 
-Bundler/OrderedGems:
-  Enabled: false
-
 Style/TrailingCommaInArguments:
   Enabled: false
 
@@ -40,13 +40,19 @@ Style/HashTransformValues:
 Style/RescueStandardError:
   Enabled: false
 
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
 Metrics/MethodLength:
   Enabled: false
 
 Metrics/AbcSize:
   Enabled: false
 
-Layout/EmptyLineAfterGuardClause:
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/ParameterLists:
   Enabled: false
 
 Naming/MethodParameterName:

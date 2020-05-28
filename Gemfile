@@ -10,6 +10,7 @@ gem 'elasticsearch'
 gem 'json'
 gem "nokogiri", ">= 1.10.8"
 gem 'powerpack'
+gem 'pry'
 gem 'ruby-debug-ide'
 
 Encoding.default_external = Encoding::UTF_8
