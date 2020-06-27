@@ -478,3 +478,100 @@ Follow https://www.elastic.co/blog/kibana-dashboard-only-mode
 robocop只要是用vs code就可以自动检查，但过去没有加上.rubocop.yaml这个文件，我加了几个白名单。
 
 sorbet是我所在的公司开发的产品，可以给ruby做type check。可以按照这个教程做setup：[https://sorbet.org/docs/adopting](https://sorbet.org/docs/adopting)
+
+## 孟章先生的服务器
+
+IP
+120.27.235.200 (public)
+172.16.161.152 (private)
+
+CentOS download docker: 
+
+Don't follow this https://docs.docker.com/engine/install/centos/
+
+This machine is CentOS 6.5
+
+https://www.linuxidc.com/Linux/2014-11/109107.htm (Can't install)
+
+https://www.liquidweb.com/kb/how-to-install-docker-on-centos-6/ (Can't install)
+
+https://www.securewebcloud.com/cloud/install-docker-on-centos-l-cendck-00/
+
+Install Ruby:
+
+http://mmclub.github.io/blog/2014/03/30/install-ruby-on-rails-on-centos/ (Can't do)
+
+https://tecadmin.net/install-ruby-latest-stable-centos/
+
+Install ElasticSearch
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html
+
+用init
+
+Install Kibana
+
+https://www.elastic.co/guide/en/kibana/current/rpm.html
+
+开放9200和5601端口
+
+https://help.aliyun.com/knowledge_detail/41319.html
+
+我最后干脆把iptables给关了
+
+
+可是为什么需要安装JDK呢？
+
+https://blog.csdn.net/yang958554999/article/details/105334505
+
+装上Java也没用
+
+ElasticSearch config path
+
+/etc/elasticsearch/elasticsearch.yml
+
+Error: Number of thread too low
+
+https://www.elastic.co/guide/en/elasticsearch/reference/master/max-number-of-threads.html
+
+Error: the default discovery settings are unsuitable for production use
+
+https://discuss.elastic.co/t/problems-with-access-to-elasticsearch-form-outside-machine/172450/3
+
+哈哈哈哈ElasticSearch终于可以用外网访问啦！
+
+就剩Kibana了
+
+Kibana在调完kibana.yml之后也可以访问了
+
+但是我发现ElasticSearch挂了，而且基本上一启动就挂。我仔细看了一下，发现内存使用率竟然已经100%了！
+
+我们需要调一下JVM的Heap Size
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html
+
+Heap Size不能超过50%。(/etc/elasticsearch/jvm.options)，我调到了300M才终于可以。
+
+终于work了，最后我们来设置密码：
+/usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive
+
+https://www.server-world.info/en/note?os=CentOS_7&p=elasticstack7&f=12
+
+这个API可以看Users
+http://120.27.235.200:9200/_security/user
+
+我觉得应该用Kibana System User
+
+记一下：
+ElasticSearch config: /etc/elasticsearch/elasticsearch.yml
+Kibana config: /etc/kibana/kibana.yml
+JVM config: /etc/elasticsearch/jvm.options
+
+superuser: elastic
+kibana: kibana_system
+
+我成功搞了Guest用户，用API做的，但是现在看不见data，估计是Role设置的问题。
+
+https://www.elastic.co/guide/en/kibana/current/role-management-api-put.html
+
+我用API建了一个read_only role，建了一个guest user。现在已经大功告成了。我要存一下config。
