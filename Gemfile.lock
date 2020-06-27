@@ -5,22 +5,22 @@ GEM
     concurrent-ruby (1.0.5)
     debase (0.2.4)
       debase-ruby_core_source (>= 0.10.2)
-    debase-ruby_core_source (0.10.5)
-    elasticsearch (7.2.0)
-      elasticsearch-api (= 7.2.0)
-      elasticsearch-transport (= 7.2.0)
-    elasticsearch-api (7.2.0)
+    debase-ruby_core_source (0.10.9)
+    elasticsearch (7.7.0)
+      elasticsearch-api (= 7.7.0)
+      elasticsearch-transport (= 7.7.0)
+    elasticsearch-api (7.7.0)
       multi_json
-    elasticsearch-transport (7.2.0)
-      faraday
+    elasticsearch-transport (7.7.0)
+      faraday (~> 1)
       multi_json
-    faraday (0.15.4)
+    faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     json (2.2.0)
     method_source (0.9.2)
     mini_portile2 (2.4.0)
-    multi_json (1.12.1)
-    multipart-post (2.0.0)
+    multi_json (1.14.1)
+    multipart-post (2.1.1)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     powerpack (0.1.2)
@@ -28,12 +28,12 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     rake (13.0.1)
-    ruby-debug-ide (0.7.0)
+    ruby-debug-ide (0.7.2)
       rake (>= 0.8.1)
-    sorbet (0.5.5175)
-      sorbet-static (= 0.5.5175)
-    sorbet-runtime (0.5.5421)
-    sorbet-static (0.5.5175-universal-darwin-18)
+    sorbet (0.4.4386)
+      sorbet-static (= 0.4.4386)
+    sorbet-runtime (0.4.4386)
+    sorbet-static (0.4.4386-universal-darwin-14)
 
 PLATFORMS
   ruby
@@ -43,12 +43,13 @@ DEPENDENCIES
   debase
   elasticsearch
   json
+  multi_json (>= 1.14.1)
   nokogiri (>= 1.10.8)
   powerpack
   pry
   ruby-debug-ide
-  sorbet
-  sorbet-runtime
+  sorbet (= 0.4.4386)
+  sorbet-runtime (= 0.4.4386)
 
 BUNDLED WITH
    2.0.2
