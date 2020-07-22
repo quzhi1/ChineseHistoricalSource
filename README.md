@@ -5,7 +5,7 @@ This is my personal stash of Chinese Historical Source
 
 # 项目Demo
 
-网址：http://24history.asia.gp
+网址：http://hakusan-s.com:5601/
 
 个人不推荐用这个网站，因为服务器是自己Host的，非常不稳定。
 
