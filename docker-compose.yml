@@ -5,7 +5,7 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=true
-      - JVM_OPTS=-Xmx2g -Xms2g
+      - JVM_OPTS=-Xmx500m -Xms500m
     volumes:
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     ports:
@@ -15,7 +15,7 @@ services:
       - elasticsearch  
     image: docker.elastic.co/kibana/kibana:7.4.1
     environment:
-      - JVM_OPTS=-Xmx2g -Xms2g
+      - JVM_OPTS=-Xmx500m -Xms500m
     volumes:
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml
     ports:
