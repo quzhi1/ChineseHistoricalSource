@@ -3,4 +3,4 @@ server.host: "0"
 elasticsearch.hosts: [ "http://elasticsearch:9200" ]
 elasticsearch.username: elastic
 elasticsearch.password: changeme
-kibana.defaultAppId: dashboard/5bfea870-a082-11ea-96c5-4f01e83573bf
+kibana.defaultAppId: dashboard/7847c610-3b0f-11eb-bd6d-934d57bf2bb6
