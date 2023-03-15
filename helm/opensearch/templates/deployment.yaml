@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opensearch
+spec:
+  selector:
+    matchLabels:
+      app: opensearch
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: opensearch
+    spec:
+      containers:
+        - name: opensearch
+          image: opensearchproject/opensearch:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: discovery.type
+              value: "single-node"
+            - name: bootstrap.memory_lock
+              value: "true"
+            - name: OPENSEARCH_JAVA_OPTS
+              value: "-Xms512m -Xmx512m"
+            - name: DISABLE_INSTALL_DEMO_CONFIG
+              value: "true"
+            - name: DISABLE_SECURITY_PLUGIN
+              value: "true"
+          ports:
+            - name: api
+              containerPort: 9200
+              protocol: TCP
+            - name: performance
+              containerPort: 9600
+              protocol: TCP
+          resources: {}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9200
+            initialDelaySeconds: 20
+            periodSeconds: 2
+            failureThreshold: 10
