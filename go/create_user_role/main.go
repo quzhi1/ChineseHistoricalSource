@@ -18,8 +18,6 @@ func main() {
 func NewClient() *opensearch.Client {
 	os.Setenv("OPENSEARCH_URL", "http://localhost:9200")
 	client, err := opensearch.NewClient(opensearch.Config{
-		Username: "elastic",
-		Password: "admin",
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, //nolint:gosec // Localhost, no cert
 		},

@@ -23,10 +23,10 @@ spec:
               value: "true"
             - name: OPENSEARCH_JAVA_OPTS
               value: "-Xms512m -Xmx512m"
-            - name: DISABLE_INSTALL_DEMO_CONFIG
-              value: "true"
-            - name: DISABLE_SECURITY_PLUGIN
-              value: "true"
+            # - name: DISABLE_INSTALL_DEMO_CONFIG
+            #   value: "true"
+            # - name: DISABLE_SECURITY_PLUGIN
+            #   value: "true"
           ports:
             - name: api
               containerPort: 9200
@@ -37,8 +37,12 @@ spec:
           resources: {}
           readinessProbe:
             httpGet:
+              scheme: HTTPS
               path: /
               port: 9200
+              httpHeaders:
+                - name: Authorization
+                  value: "Basic YWRtaW46YWRtaW4="
             initialDelaySeconds: 20
             periodSeconds: 2
             failureThreshold: 10

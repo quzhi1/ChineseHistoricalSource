@@ -33,6 +33,8 @@ helm_resource(
   flags=[
     '--set',
     'clusterName=elasticsearch-history-source',
+    '--set',
+    'opensearchHosts=https://opensearch.default.svc.cluster.local:9200',
   ],
   resource_deps=['opensearch-service'],
   labels='opensearch',
